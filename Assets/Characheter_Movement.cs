@@ -5,14 +5,34 @@ public class Characheter_Movement : MonoBehaviour
     public CharacterController controller;
     public float speed = 12f;
     public float sprintMultiplier = 1.5f; // how much faster sprinting is
-
+    public GameObject playerbody;
     private Vector3 Velocity;
-
+    private Vector3 orignalScale;
+    void Start(){
+    
+        orignalScale = playerbody.transform.localScale;
+        
+    }
     void Update()
     {
-        if (controller.isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftControl)) // when key is pressed
         {
-            Velocity.y = 0f;
+            playerbody.transform.localScale = new Vector3(
+                orignalScale.x, 
+                orignalScale.y * 0.5f, // crouch lower
+                orignalScale.z
+            );
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            playerbody.transform.localScale = orignalScale;
+
+        }
+        if (controller.isGrounded && Velocity.y < 0)
+        {
+            Velocity.y = -2f; // keeps player grounded
         }
 
         float x = Input.GetAxis("Horizontal");
