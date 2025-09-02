@@ -4,25 +4,32 @@ public class Characheter_Movement : MonoBehaviour
 {
     public CharacterController controller;
     public float speed = 12f;
-    
-    Vector3 Velocity;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float sprintMultiplier = 1.5f; // how much faster sprinting is
 
-    // Update is called once per frame
+    private Vector3 Velocity;
+
     void Update()
     {
         if (controller.isGrounded)
         {
             Velocity.y = 0f;
         }
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        // Check if Left Shift is held down
+        float currentSpeed = speed;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed *= sprintMultiplier;
+        }
+
+        // Apply movement
         Vector3 movement = transform.right * x + transform.forward * z;
-        controller.Move(movement *(speed * Time.deltaTime));
+        controller.Move(movement * (currentSpeed * Time.deltaTime));
+
+        // Apply gravity
         Velocity.y += Physics.gravity.y * Time.deltaTime;
         controller.Move(Velocity * Time.deltaTime);
     }
