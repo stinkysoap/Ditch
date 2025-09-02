@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   mouseSensitivity: 100
-  playerBody: {fileID: 0}
+  playerBody: {fileID: 920741719}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   controller: {fileID: 920741718}
   speed: 12
+  sprintMultiplier: 1.5
 --- !u!143 &920741718
 CharacterController:
   m_ObjectHideFlags: 0
